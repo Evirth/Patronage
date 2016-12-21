@@ -21,12 +21,13 @@ namespace Task1
             }
 
             Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.BackgroundColor = ConsoleColor.Black;
             Console.WriteLine($"{"Name".PadLeft(42)}{"Creation Time".PadLeft(55)}");
             Console.WriteLine($"{new string('_', 100)}");
 
             try
             {
-                ShowFiles(new DirectoryInfo(appDir), "--");
+                ShowFiles(new DirectoryInfo(args.Length > 0 ? args[0] : appDir), "--");
             }
             catch (Exception ex)
             {
