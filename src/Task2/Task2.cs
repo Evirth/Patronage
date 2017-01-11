@@ -1,20 +1,9 @@
 ﻿using System;
 using System.IO;
+using Task2.Interfaces;
 
 namespace Task2
 {
-    interface ITask2
-    {
-        string MainPath { get; set; }
-        DirectoryInfo MainDir { get; set; }
-        DirectoryInfo[] Dirs { get; set; }
-        FileInfo[] Files { get; set; }
-
-        void GetFiles(string pPath);
-        FileSystem GetData(string pPath);
-
-    }
-
     public class Task2 : ITask2
     {
         public string MainPath { get; set; }

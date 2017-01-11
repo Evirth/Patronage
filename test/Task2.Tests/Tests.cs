@@ -1,11 +1,12 @@
 ﻿using System.IO;
+using System.Reflection;
 using Xunit;
 
 namespace Task2.Tests
 {
     public class GetFilesTests
     {
-        public string DefaultPath = "C:\\Program Files\\";
+        public string DefaultPath = Directory.GetCurrentDirectory();
 
         public Task2 Execute()
         {
@@ -54,7 +55,7 @@ namespace Task2.Tests
 
     public class GetDataTests
     {
-        public string DefaultPath = "C:\\Windows\\notepad.exe";
+        public string DefaultPath = Assembly.GetEntryAssembly().CodeBase.Substring(8);
 
         public FileSystem Execute()
         {
