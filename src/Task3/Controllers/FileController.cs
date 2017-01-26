@@ -1,6 +1,7 @@
 ﻿using System;
-using System.Text;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Task3.Models;
 
 namespace Task3.Controllers
 {
@@ -15,23 +16,29 @@ namespace Task3.Controllers
             {
                 fileSystem = file.GetData(path);
             }
+            catch (ArgumentNullException)
+            {
+                return "Use '/File?path=...' to select a file which metadata you want to print.";
+            }
             catch (Exception e)
             {
                 return e.Message;
             }
-            
-            StringBuilder fileSystemString = new StringBuilder();
-            fileSystemString.AppendLine("Exists: \t\t" + fileSystem.Exists);
-            fileSystemString.AppendLine("Name: \t\t\t" + fileSystem.Name);
-            fileSystemString.AppendLine("Size: \t\t\t" + fileSystem.Size + " B");
-            fileSystemString.AppendLine("Extension: \t\t" + fileSystem.Extension);
-            fileSystemString.AppendLine("Path: \t\t\t" + fileSystem.Path);
-            fileSystemString.AppendLine("Parent Directory: \t" + fileSystem.ParentDir);
-            fileSystemString.AppendLine("Creation Time: \t\t" + fileSystem.CreationTime);
-            fileSystemString.AppendLine("Last Acces Time: \t" + fileSystem.LastAccessTime);
-            fileSystemString.AppendLine("Last Write Time: \t" + fileSystem.LastWriteTime);
 
-            return fileSystemString.ToString();
+            var modifiedForJson = new MainModel
+            {
+                Exists = fileSystem.Exists,
+                Name = fileSystem.Name,
+                Path = fileSystem.Path,
+                Size = fileSystem.Size,
+                Extension = fileSystem.Extension,
+                ParentDir = fileSystem.ParentDir.FullName,      //Changed to string from DirectoryInfo type because of Json exception
+                CreationTime = fileSystem.CreationTime,
+                LastWriteTime = fileSystem.LastWriteTime,
+                LastAccessTime = fileSystem.LastAccessTime
+            };
+
+            return JsonConvert.SerializeObject(modifiedForJson, Formatting.Indented);
         }
     }
 }
