@@ -1,0 +1,33 @@
+﻿@using Task3.Controllers
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>File List</title>
+    </head>
+    <body>
+    <div id="FileList">
+        @if (string.IsNullOrWhiteSpace(ViewBag.ExepctionMsg))
+        {
+            <b>
+                @ListController.Files.MainDir.FullName<br/>
+                @foreach (var dir in ListController.Files.Dirs)
+                {
+                    Write("|-- " + dir.Name);
+                    <br/>
+                }
+            </b>
+            foreach (var file in ListController.Files.Files)
+            {
+                Write("|-- " + file.Name);
+                <br/>
+            }
+        }
+        else
+        {
+            <b>@ViewBag.ExepctionMsg.ToString()</b>
+        }
+    </div>
+    </body>
+</html>

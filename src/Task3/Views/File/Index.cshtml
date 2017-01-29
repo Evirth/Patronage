@@ -1,0 +1,21 @@
+﻿@using Newtonsoft.Json
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>File Metadata</title>
+    </head>
+    <body>
+        <div id="FileMetadata">
+            @if (string.IsNullOrWhiteSpace(ViewBag.Message))
+            {
+                Write(JsonConvert.SerializeObject(ViewBag.Object, Formatting.Indented));
+            }
+            else
+            {
+                <b>@ViewBag.Message</b>
+            }
+        </div>
+    </body>
+</html>
